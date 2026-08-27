@@ -291,32 +291,18 @@ struct CalorieTrackerView: View {
         }
 
         .sheet(isPresented: $showingDailyWeightPrompt) {
-
             WeightEntryView(
-                weightInput: $dailyWeightInput
-            ) {
-
-                guard
-                    let weight =
-                        Double(dailyWeightInput),
-                    weight > 0
-                else {
-                    return
-                }
-
-                currentWeight = weight
-
-                saveDailyWeightEntry(weight: weight)
-
+                weightInput: $dailyWeightInput,
+                userId: 1
+            ) { newWeight in
+                
+                currentWeight = newWeight.weight
                 lastWeightEntryDate = todayKey()
-
                 dailyWeightInput = ""
-
                 showingDailyWeightPrompt = false
             }
             .interactiveDismissDisabled()
         }
-
         .sheet(isPresented: $showingProfileDetails) {
 
             ProfileDetailsView(
